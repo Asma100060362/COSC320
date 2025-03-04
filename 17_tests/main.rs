@@ -1,7 +1,18 @@
-// Calculates the power of 2 using a bit shift.
-// `1 << n` is equivalent to "2 to the power of n".
-fn power_of_2(n: u8) -> u64 {
-    1 << n
+struct Rectangle {
+    width: i32,
+    height: i32,
+}
+
+impl Rectangle {
+    // Don't change this function.
+    fn new(width: i32, height: i32) -> Self {
+        if width <= 0 || height <= 0 {
+        
+            panic!("Rectangle width and height must be positive");
+        }
+
+        Rectangle { width, height }
+    }
 }
 
 fn main() {
@@ -13,11 +24,24 @@ mod tests {
     use super::*;
 
     #[test]
-    fn you_can_assert_eq() {
-        // Test the function `power_of_2` with some values.
-        assert_eq!(power_of_2(0), 1);  // 2^0 = 1
-        assert_eq!(power_of_2(1), 2);  // 2^1 = 2
-        assert_eq!(power_of_2(5), 32); // 2^5 = 32
-        assert_eq!(power_of_2(10), 1024); // 2^10 = 1024
+    fn correct_width_and_height() {
+        // Test if the rectangle has the correct size
+        let rect = Rectangle::new(10, 20);
+        assert_eq!(rect.width, 10);  // Check width
+        assert_eq!(rect.height, 20); // Check height
+    }
+
+    // Test if the program panics when we try to create a rectangle with negative width.
+    #[test]
+    #[should_panic(expected = "Rectangle width and height must be positive")]
+    fn negative_width() {
+        let _rect = Rectangle::new(-10, 10);
+    }
+
+    // Test if the program panics when we try to create a rectangle with negative height.
+    #[test]
+    #[should_panic(expected = "Rectangle width and height must be positive")]
+    fn negative_height() {
+        let _rect = Rectangle::new(10, -10);
     }
 }
